@@ -18,16 +18,16 @@ class AuthController extends Controller
     public function login(Request $request): JsonResponse
     {
         try {
-            // Validación
+            
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required|string'
             ]);
 
-            // Crear DTO
+            
             $loginDTO = LoginDTO::fromArray($request->all());
             
-            // Ejecutar caso de uso
+            
             $loginUseCase = new LoginUseCase($this->authRepository);
             $response = $loginUseCase->execute($loginDTO);
 
@@ -42,10 +42,22 @@ class AuthController extends Controller
 
     public function logout(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
-        
-        return response()->json([
-            'message' => 'Sesión cerrada exitosamente'
-        ]);
+        try {
+            $user = $request->user();
+            $tokenId = $user->currentAccessToken()->id;
+            
+            $this->authRepository->revokeToken($user, $tokenId);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Sesión cerrada exitosamente'
+            ]);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

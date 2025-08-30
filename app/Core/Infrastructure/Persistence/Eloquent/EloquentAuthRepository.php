@@ -6,6 +6,7 @@ use Domain\Entities\User;
 use Domain\Repositories\AuthRepository;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\NewAccessToken;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class EloquentAuthRepository implements AuthRepository
 {
@@ -42,4 +43,40 @@ class EloquentAuthRepository implements AuthRepository
         
         return $token->plainTextToken;
     }
+
+     public function revokeToken(User $user, string $tokenId): bool
+    {
+        $token = $user->tokens()->where('id', $tokenId)->first();
+        if ($token) {
+            $token->delete();
+            return true;
+        }
+        return false;
+    }
+
+    public function findUserByToken(string $token): ?User
+    {
+        $accessToken = PersonalAccessToken::findToken($token);
+        
+        if (!$accessToken) {
+            return null;
+        }
+
+        return $accessToken->tokenable;
+    }
+
+    public function refreshAccessToken(User $user): string
+{
+    
+    $currentTokenId = $user->currentAccessToken()->id;
+    
+    
+    $tokenModel = $user->tokens()->where('id', $currentTokenId)->first();
+    if ($tokenModel) {
+        $tokenModel->delete();
+    }
+    
+    
+    return $this->createAccessToken($user);
+}
 }
