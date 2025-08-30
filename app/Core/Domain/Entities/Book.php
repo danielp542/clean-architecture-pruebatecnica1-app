@@ -25,6 +25,11 @@ class Book extends Model
         return $this->belongsToMany(Author::class, 'author_book');
     }
 
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class, 'book_genre');
+    }
+
     public function loans()
     {
         return $this->hasMany(Loan::class);
@@ -49,5 +54,10 @@ class Book extends Model
             $this->copies_available++;
             $this->save();
         }
+    }
+
+    public function getGenresListAttribute(): string
+    {
+        return $this->genres->pluck('name')->implode(', ');
     }
 }

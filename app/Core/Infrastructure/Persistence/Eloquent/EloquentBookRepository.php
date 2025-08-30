@@ -9,12 +9,12 @@ class EloquentBookRepository implements BookRepository
 {
     public function findById(int $id): ?Book
     {
-        return Book::with('authors')->find($id);
+        return Book::with(['authors', 'genres'])->find($id);
     }
 
     public function getAll(): array
     {
-        return Book::with('authors')->get()->toArray();
+        return Book::with(['authors', 'genres'])->get()->toArray();
     }
 
     public function save(Book $book): Book
@@ -31,7 +31,7 @@ class EloquentBookRepository implements BookRepository
     public function findByTitle(string $title): array
     {
         return Book::where('title', 'like', "%{$title}%")
-            ->with('authors')
+            ->with(['authors', 'genres'])
             ->get()
             ->toArray();
     }
@@ -60,4 +60,25 @@ class EloquentBookRepository implements BookRepository
             ->get()
             ->toArray();
     }
+
+    public function findByGenre(string $genre): array
+    {
+        return Book::whereHas('genres', function($query) use ($genre) {
+                $query->where('name', 'like', "%{$genre}%");
+            })
+            ->with(['authors', 'genres'])
+            ->get()
+            ->toArray();
+    }
+
+    public function searchByGenre(string $query): array
+    {
+        return Book::whereHas('genres', function($q) use ($query) {
+                $q->where('name', 'like', "%{$query}%");
+            })
+            ->with(['authors', 'genres'])
+            ->get()
+            ->toArray();
+    }
+
 }

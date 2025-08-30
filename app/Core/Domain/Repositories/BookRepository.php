@@ -14,4 +14,6 @@ interface BookRepository
     public function findByIsbn(string $isbn): ?Book;
     public function getAvailableBooks(): array;
     public function search(string $query): array;
+    public function findByGenre(string $genre): array;
+    public function searchByGenre(string $query): array;
 }
