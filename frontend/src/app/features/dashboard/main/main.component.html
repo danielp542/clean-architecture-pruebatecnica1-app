@@ -1,0 +1,106 @@
+<!--
+  Archivo: Componente-Bienvenida-Libros.html
+  Uso: Copia la sección <main> (sin <html> o <body>) en tu archivo
+       `componente-bienvenida.component.html` y el bloque <style>
+       en `componente-bienvenida.component.css` (o pega todo en
+       un solo archivo si tu flujo de trabajo lo permite).
+-->
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bienvenida - Préstamo de Libros</title>
+</head>
+<body>
+  <main class="page-root">
+    <section class="welcome-card" role="region" aria-label="Bienvenida al espacio de préstamos de libros">
+      <div class="illustration" aria-hidden="true">
+        <!-- Icono simple de libro en SVG -->
+        <svg viewBox="0 0 64 64" class="book-svg" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="10" width="40" height="44" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M46 12h8v38a2 2 0 0 1-2 2H46" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M14 20h22" stroke="currentColor" stroke-width="1"/>
+          <path d="M14 28h22" stroke="currentColor" stroke-width="1"/>
+        </svg>
+      </div>
+
+      <h1 class="title">Bienvenido a nuestro espacio de préstamos de libros</h1>
+      <p class="subtitle">Explora, toma prestado y disfruta. ¡Lee más, descubre más!</p>
+
+      
+
+      <p class="note">¿Necesitas ayuda? Consulta con la biblioteca o revisa las normas de préstamo.</p>
+    </section>
+  </main>
+
+  <style>
+    :root{
+      --bg: linear-gradient(180deg, #f6fbff 0%, #eef7ff 100%);
+      --card-bg: #ffffff;
+      --accent: #2563eb; /* azul agradable */
+      --muted: #6b7280;
+      --radius: 14px;
+      --shadow: 0 8px 30px rgba(38, 57, 92, 0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    html,body{height:100%;margin:0}
+    .page-root{
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      background: var(--bg);
+      padding:32px;
+    }
+
+    .welcome-card{
+      width:min(880px, 92%);
+      background:var(--card-bg);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:40px;
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      align-items:center;
+      transition:transform .28s ease, box-shadow .28s ease;
+    }
+
+    .welcome-card:hover{transform:translateY(-6px)}
+
+    .illustration{
+      width:92px;height:92px;
+      display:grid;place-items:center;
+      border-radius:22px;
+      background:linear-gradient(135deg, rgba(37,99,235,0.12), rgba(96,165,250,0.08));
+      color:var(--accent);
+      box-shadow: 0 6px 18px rgba(37,99,235,0.06);
+    }
+
+    .book-svg{width:56px;height:56px}
+
+    .title{font-size:1.6rem;margin:0;color:#0f172a;font-weight:700}
+    .subtitle{margin:0;font-size:1rem;color:var(--muted)}
+
+    .actions{display:flex;gap:12px;margin-top:4px}
+    .btn{
+      padding:10px 18px;border-radius:10px;border:0;font-weight:600;cursor:pointer;font-size:0.95rem;
+      box-shadow: 0 4px 10px rgba(15,23,42,0.04);
+    }
+    .btn.primary{background:var(--accent);color:#fff}
+    .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(37,99,235,0.12)}
+
+    .note{margin:0;font-size:0.85rem;color:var(--muted)}
+
+    /* Responsive */
+    @media (max-width:520px){
+      .welcome-card{padding:28px;border-radius:12px}
+      .title{font-size:1.25rem}
+      .illustration{width:72px;height:72px}
+    }
+  </style>
+</body>
+</html>
