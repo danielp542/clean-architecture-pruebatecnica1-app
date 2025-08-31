@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Infrastructure\Persistence\Eloquent\EloquentAuthorRepository;
 use Domain\Repositories\AuthorRepository;
+use Infrastructure\Persistence\Eloquent\EloquentStatusRepository;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -12,7 +13,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(AuthorRepository::class, EloquentAuthorRepository::class);
         $this->app->bind(\App\Core\Application\UseCases\Author\GetAuthorByIdUseCase::class);
         $this->app->bind(\App\Core\Application\UseCases\Author\GetAllAuthorsUseCase::class);
         $this->app->bind(\App\Core\Application\UseCases\Author\SearchAuthorsByNameUseCase::class);
@@ -42,6 +42,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Core\Application\UseCases\Status\GetAllStatusesUseCase::class);
         $this->app->bind(\App\Core\Application\UseCases\Status\FindStatusByNameUseCase::class);
         $this->app->bind(\App\Core\Application\UseCases\Status\CreateStatusUseCase::class);
+
+        $this->app->bind(\Domain\Repositories\GenreRepository::class, \Infrastructure\Persistence\Eloquent\EloquentGenreRepository::class);
+        $this->app->bind(\App\Core\Application\UseCases\Genre\GetGenreByIdUseCase::class);
+        $this->app->bind(\App\Core\Application\UseCases\Genre\GetAllGenresUseCase::class);
+        $this->app->bind(\App\Core\Application\UseCases\Genre\FindGenreByNameUseCase::class);
+        $this->app->bind(\App\Core\Application\UseCases\Genre\CreateGenreUseCase::class);
     }
 
     /**

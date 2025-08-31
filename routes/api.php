@@ -8,16 +8,8 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LoanController;
 use App\Http\Controllers\StatusController;
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\GenreController;
+
 Route::prefix('v1')->group(function () {
     Route::apiResource('users', UserController::class);
     Route::post('users', [UserController::class, 'store']);
@@ -67,4 +59,12 @@ Route::prefix('statuses')->group(function () {
     Route::get('/{id}', [StatusController::class, 'findById']);
     Route::get('/name/{name}', [StatusController::class, 'findByName']);
     Route::post('/', [StatusController::class, 'create']);
+});
+
+Route::prefix('genres')->group(function () {
+    Route::get('/', [GenreController::class, 'getAll']);
+    Route::get('/{id}', [GenreController::class, 'findById']);
+    Route::get('/name/{name}', [GenreController::class, 'findByName']);
+    Route::post('/', [GenreController::class, 'create']);
+    Route::delete('/{id}', [GenreController::class, 'delete']);
 });

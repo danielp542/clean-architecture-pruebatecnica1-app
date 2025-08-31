@@ -5,7 +5,7 @@ namespace Infrastructure\Persistence\Eloquent;
 use Domain\Entities\Author;
 use Domain\Repositories\AuthorRepository;
 
-class EloquentAuthorRepository implements AuthorRepository
+class EloquentAuthcorRepository implements AuthorRepository
 {
     public function findById(int $id): ?Author
     {
