@@ -16,4 +16,5 @@ interface LoanRepository
     public function getOverdueLoans(): array;
     public function createLoan(User $user, Book $book, \DateTime $dueDate): Loan;
     public function returnLoan(int $loanId): Loan;
+    public function getUserActiveLoans(int $userId): array;
 }

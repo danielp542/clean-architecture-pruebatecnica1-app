@@ -21,4 +21,10 @@ class EloquentStatusRepository implements StatusRepository
     {
         return Status::all()->toArray();
     }
+
+    public function save(Status $status): Status
+    {
+        $status->save();
+        return $status;
+    }
 }

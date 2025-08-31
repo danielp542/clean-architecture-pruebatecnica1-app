@@ -81,4 +81,15 @@ class EloquentLoanRepository implements LoanRepository
 
         return $loan;
     }
+
+    public function getUserActiveLoans(int $userId): array
+    {
+        $statusPrestado = Status::where('name', 'prestado')->first();
+
+        return Loan::where('user_id', $userId)
+            ->where('status_id', $statusPrestado->id)
+            ->with(['book', 'status'])
+            ->get()
+            ->toArray();
+    }
 }
