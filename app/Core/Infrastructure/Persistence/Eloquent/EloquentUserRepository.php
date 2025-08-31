@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Core\Infrastructure\Persistence\Eloquent;
+namespace Infrastructure\Persistence\Eloquent;
 
 use Domain\Entities\User;
 use Domain\Repositories\UserRepository;

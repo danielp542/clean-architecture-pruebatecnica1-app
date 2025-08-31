@@ -7,7 +7,7 @@ use Application\UseCases\User\CreateUserUseCase;
 use Domain\Repositories\UserRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Core\Infrastructure\Persistence\Eloquent\EloquentUserRepository;
+use Infrastructure\Persistence\Eloquent\EloquentUserRepository;
 
 class UserController extends Controller
 {

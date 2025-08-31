@@ -25,11 +25,9 @@ class LoanController extends Controller
         private ReturnLoanUseCase $returnLoanUseCase
     ) {}
 
-    public function findById(Request $request, $id): JsonResponse
+    public function findById(int $id): JsonResponse
     {
         try {
-            $request->validate(['id' => 'required|integer']);
-
             $loanDTO = $this->getLoanByIdUseCase->execute($id);
             
             if (!$loanDTO) {
@@ -81,10 +79,9 @@ class LoanController extends Controller
         }
     }
 
-    public function getUserLoans(Request $request, $userId): JsonResponse
+    public function getUserLoans(int $userId): JsonResponse
     {
         try {
-            $request->validate(['userId' => 'required|integer']);
 
             $loansDTO = $this->getUserLoansUseCase->execute($userId);
             
@@ -178,10 +175,9 @@ class LoanController extends Controller
         }
     }
 
-    public function returnLoan(Request $request, $loanId): JsonResponse
+    public function returnLoan(int $loanId): JsonResponse
     {
         try {
-            $request->validate(['loanId' => 'required|integer|exists:loans,id']);
 
             $loanDTO = $this->returnLoanUseCase->execute($loanId);
 

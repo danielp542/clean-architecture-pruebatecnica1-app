@@ -19,11 +19,9 @@ class AuthorController extends Controller
         private CreateAuthorUseCase $createAuthorUseCase
     ) {}
 
-    public function findById(Request $request, int $id): JsonResponse
+    public function findById( int $id): JsonResponse
     {
         try {
-            $request->validate(['id' => 'required|integer']);
-
             $authorDTO = $this->getAuthorByIdUseCase->execute($id);
             
             if (!$authorDTO) {
@@ -65,10 +63,10 @@ class AuthorController extends Controller
         }
     }
 
-    public function findByName(Request $request, string $name): JsonResponse
+    public function findByName(string $name): JsonResponse
     {
         try {
-            $request->validate(['name' => 'required|string|max:255']);
+            
 
             $authorsDTO = $this->searchAuthorsByNameUseCase->execute($name);
             

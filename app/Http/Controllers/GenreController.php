@@ -19,10 +19,9 @@ class GenreController extends Controller
         private CreateGenreUseCase $createGenreUseCase
     ) {}
 
-    public function findById(Request $request, $id): JsonResponse
+    public function findById( $id): JsonResponse
     {
         try {
-            $request->validate(['id' => 'required|integer']);
 
             $genreDTO = $this->getGenreByIdUseCase->execute($id);
             
@@ -63,10 +62,9 @@ class GenreController extends Controller
         }
     }
 
-    public function findByName(Request $request, $name): JsonResponse
+    public function findByName( $name): JsonResponse
     {
         try {
-            $request->validate(['name' => 'required|string|max:255']);
 
             $genreDTO = $this->findGenreByNameUseCase->execute($name);
             

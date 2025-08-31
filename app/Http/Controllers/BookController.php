@@ -96,10 +96,9 @@ class BookController extends Controller
         }
     }
 
-    public function findById(Request $request, $id): JsonResponse
+    public function findById(int $id): JsonResponse
     {
         try {
-            $request->validate(['id' => 'required|integer|exists:books,id']);
 
             $bookDTO = $this->getBookByIdUseCase->execute($id);
             
@@ -122,10 +121,10 @@ class BookController extends Controller
         }
     }
 
-    public function findByTitle(Request $request, $title): JsonResponse
+    public function findByTitle(string $title): JsonResponse
     {
         try {
-            $request->validate(['title' => 'required|string|max:255']);
+            
 
             $booksDTO = $this->findBookByTitleUseCase->execute($title);
             
@@ -148,10 +147,9 @@ class BookController extends Controller
         }
     }
 
-    public function findByIsbn(Request $request, $isbn): JsonResponse
+    public function findByIsbn( $isbn): JsonResponse
     {
         try {
-            $request->validate(['isbn' => 'required|string|max:13']);
 
             $bookDTO = $this->findBookByIsbnUseCase->execute($isbn);
             
@@ -198,10 +196,9 @@ class BookController extends Controller
         }
     }
 
-    public function search(Request $request, $query): JsonResponse
+    public function search(string $query): JsonResponse
     {
         try {
-            $request->validate(['query' => 'required|string|max:255']);
 
             $booksDTO = $this->searchBooksUseCase->execute($query);
             
@@ -224,10 +221,9 @@ class BookController extends Controller
         }
     }
 
-    public function findByGenre(Request $request, $genre): JsonResponse
+    public function findByGenre(string $genre): JsonResponse
     {
         try {
-            $request->validate(['genre' => 'required|string|max:255']);
 
             $booksDTO = $this->findBooksByGenreUseCase->execute($genre);
             
@@ -250,10 +246,9 @@ class BookController extends Controller
         }
     }
 
-    public function searchByGenre(Request $request, $query): JsonResponse
+    public function searchByGenre(string $query): JsonResponse
     {
         try {
-            $request->validate(['query' => 'required|string|max:255']);
 
             $booksDTO = $this->searchBooksByGenreUseCase->execute($query);
             
