@@ -31,8 +31,8 @@ class AuthorController extends Controller
             return response()->json([
                 'id' => $authorDTO->id,
                 'name' => $authorDTO->name,
-                'bio' => $authorDTO->bio,
-                'birth_date' => $authorDTO->birth_date,
+                'nationality' => $authorDTO->nationality, // Cambiado de bio
+                'birthdate' => $authorDTO->birthdate,     // Cambiado de birth_date
                 'books' => $authorDTO->books
             ]);
 
@@ -47,13 +47,13 @@ class AuthorController extends Controller
             $authorsDTO = $this->getAllAuthorsUseCase->execute();
             
             $authorsArray = array_map(function ($authorDTO) {
-                return [
+                return response()->json([
                     'id' => $authorDTO->id,
                     'name' => $authorDTO->name,
-                    'bio' => $authorDTO->bio,
-                    'birth_date' => $authorDTO->birth_date,
+                    'nationality' => $authorDTO->nationality, // Cambiado de bio
+                    'birthdate' => $authorDTO->birthdate,     // Cambiado de birth_date
                     'books' => $authorDTO->books
-                ];
+                ]);
             }, $authorsDTO);
 
             return response()->json(['data' => $authorsArray]);
@@ -75,13 +75,13 @@ class AuthorController extends Controller
             }
 
             $authorsArray = array_map(function ($authorDTO) {
-                return [
-                    'id' => $authorDTO->id,
-                    'name' => $authorDTO->name,
-                    'bio' => $authorDTO->bio,
-                    'birth_date' => $authorDTO->birth_date,
-                    'books' => $authorDTO->books
-                ];
+            return response()->json([
+                'id' => $authorDTO->id,
+                'name' => $authorDTO->name,
+                'nationality' => $authorDTO->nationality, // Cambiado de bio
+                'birthdate' => $authorDTO->birthdate,     // Cambiado de birth_date
+                'books' => $authorDTO->books
+            ]);
             }, $authorsDTO);
 
             return response()->json(['data' => $authorsArray]);
@@ -109,15 +109,12 @@ class AuthorController extends Controller
             $authorDTO = $this->createAuthorUseCase->execute($dto);
 
             return response()->json([
-                'message' => 'Author created successfully',
-                'author' => [
                     'id' => $authorDTO->id,
                     'name' => $authorDTO->name,
-                    'bio' => $authorDTO->bio,
-                    'birth_date' => $authorDTO->birth_date,
+                    'nationality' => $authorDTO->nationality, // Cambiado de bio
+                    'birthdate' => $authorDTO->birthdate,     // Cambiado de birth_date
                     'books' => $authorDTO->books
-                ]
-            ], 201);
+                ], 201);
 
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);

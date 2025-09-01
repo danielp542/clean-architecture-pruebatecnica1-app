@@ -19,8 +19,8 @@ class SearchAuthorsByNameUseCase
             return new AuthorDTO(
                 $author['id'],
                 $author['name'],
-                $author['bio'],
-                $author['birth_date'],
+                $author['nationality'] ?? null, // Cambiado de 'bio' a 'nationality'
+                $author['birthdate'] ?? null,   // Cambiado de 'birth_date' a 'birthdate'
                 $author['books'] ?? []
             );
         }, $authors);

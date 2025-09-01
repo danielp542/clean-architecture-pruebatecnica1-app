@@ -25,7 +25,6 @@ class CreateAuthorUseCase
         return new AuthorDTO(
             $savedAuthor->id,
             $savedAuthor->name,
-            $savedAuthor->bio,
             $savedAuthor->birth_date,
             $savedAuthor->books->toArray() ?? []
         );

@@ -6,7 +6,7 @@ class CreateAuthorDTO
 {
     public function __construct(
         public readonly string $name,
-        public readonly ?string $bio = null,
-        public readonly ?string $birth_date = null
+        public readonly ?string $nationality = null, // Cambiado de bio
+        public readonly ?string $birthdate = null    // Cambiado de birth_date
     ) {}
 }

@@ -1,0 +1,164 @@
+<div class="container">
+  <!-- Header con botones de navegación -->
+  <div class="header">
+    <button mat-button (click)="goBack()" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+      Volver
+    </button>
+    
+    <h1>Detalles del Autor</h1>
+    
+    <button mat-raised-button color="accent" (click)="editAuthor()" *ngIf="author">
+      <mat-icon>edit</mat-icon>
+      Editar Autor
+    </button>
+  </div>
+
+  <!-- Loading spinner -->
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Cargando información del autor...</p>
+  </div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="!loading && !author" class="error-container">
+    <mat-icon class="error-icon">error_outline</mat-icon>
+    <h2>Autor no encontrado</h2>
+    <p>No se pudo cargar la información del autor solicitado.</p>
+    <button mat-raised-button color="primary" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Volver a la lista
+    </button>
+  </div>
+
+  <!-- Información del autor -->
+  <div *ngIf="!loading && author" class="author-details">
+    <mat-card class="author-card">
+      <mat-card-header>
+        <mat-card-title>{{ author.name }}</mat-card-title>
+        <mat-card-subtitle>
+          <span class="author-id">ID: {{ author.id }}</span>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <!-- Información básica -->
+        <div class="info-section">
+          <h3>Información Básica</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">ID:</span>
+              <span class="value">{{ author.id }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Nombre:</span>
+              <span class="value">{{ author.name }}</span>
+            </div>
+            <div class="info-item" *ngIf="author.nationality">
+              <span class="label">Nacionalidad:</span>
+              <span class="value">{{ author.nationality }}</span>
+            </div>
+            <div class="info-item" *ngIf="author.birthdate">
+              <span class="label">Fecha de nacimiento:</span>
+              <span class="value">{{ formatDate(author.birthdate) }}</span>
+            </div>
+            <div class="info-item" *ngIf="getAge() !== null">
+              <span class="label">Edad:</span>
+              <span class="value">{{ getAge() }} años</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Biografía -->
+        <div class="info-section" *ngIf="author.bio">
+          <h3>Biografía</h3>
+          <div class="bio-content">
+            <p>{{ author.bio }}</p>
+          </div>
+        </div>
+
+        <!-- Libros del autor -->
+        <div class="info-section">
+          <h3>Libros Publicados</h3>
+          <div *ngIf="author.books && author.books.length > 0; else noBooks">
+            <mat-chip-listbox>
+              <mat-chip-option *ngFor="let book of author.books" 
+                              [selectable]="false"
+                              class="book-chip"
+                              [routerLink]="['/dashboard/libros', book.id]">
+                <mat-icon>book</mat-icon>
+                {{ book.title }}
+                <span class="book-year" *ngIf="book.published_year">
+                  ({{ book.published_year }})
+                </span>
+              </mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+          <ng-template #noBooks>
+            <p class="no-data">Este autor no tiene libros registrados.</p>
+          </ng-template>
+        </div>
+
+        <!-- Información adicional -->
+        
+      </mat-card-content>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-actions>
+        <button mat-button color="warn" (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+          Volver
+        </button>
+        <button mat-raised-button color="accent" (click)="editAuthor()">
+          <mat-icon>edit</mat-icon>
+          Editar
+        </button>
+        <button mat-raised-button color="primary" routerLink="/dashboard/autores">
+          <mat-icon>list</mat-icon>
+          Ver todos los autores
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <!-- Estadísticas rápidas -->
+    <div class="stats-cards">
+      <mat-card class="stat-card">
+        <mat-card-header>
+          <mat-card-title>Libros Publicados</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="stat-value">
+            {{ getBooksCount() }}
+          </div>
+          <p>libro(s)</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card" *ngIf="author.birthdate">
+        <mat-card-header>
+          <mat-card-title>Edad</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="stat-value">
+            {{ getAge() }}
+          </div>
+          <p>años</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card" *ngIf="author.nationality">
+        <mat-card-header>
+          <mat-card-title>Nacionalidad</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="stat-value nationality">
+            {{ author.nationality }}
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
