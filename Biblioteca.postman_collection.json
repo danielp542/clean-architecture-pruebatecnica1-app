@@ -1,0 +1,638 @@
+{
+  "info": {
+    "name": "Library Management API",
+    "description": "API completa para gestión de biblioteca con Clean Architecture",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000/api",
+      "type": "string"
+    },
+    {
+      "key": "auth_token",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "AUTH - Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "if (pm.response.code === 200) {",
+              "    var jsonData = pm.response.json();",
+              "    pm.collectionVariables.set('auth_token', jsonData.token);",
+              "    pm.request.headers.add({",
+              "        key: 'Authorization',",
+              "        value: 'Bearer ' + jsonData.token",
+              "    });",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"admin@library.com\",\n    \"password\": \"password\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/login",
+          "host": ["{{base_url}}"],
+          "path": ["login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Authors",
+      "item": [
+        {
+          "name": "GET - Get all authors",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/authors",
+              "host": ["{{base_url}}"],
+              "path": ["authors"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Get author by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/authors/1",
+              "host": ["{{base_url}}"],
+              "path": ["authors", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Search authors by name",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/authors/search/Cervantes",
+              "host": ["{{base_url}}"],
+              "path": ["authors", "search", "Cervantes"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Create new author",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Gabriel García Márquez\",\n    \"bio\": \"Escritor colombiano, premio Nobel de Literatura\",\n    \"birth_date\": \"1927-03-06\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/authors",
+              "host": ["{{base_url}}"],
+              "path": ["authors"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Books",
+      "item": [
+        {
+          "name": "GET - Get all books",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/books",
+              "host": ["{{base_url}}"],
+              "path": ["books"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Get book by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/books/1",
+              "host": ["{{base_url}}"],
+              "path": ["books", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Search books by title",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/books/title/Quijote",
+              "host": ["{{base_url}}"],
+              "path": ["books", "title", "Quijote"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Get book by ISBN",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/books/isbn/9788437600001",
+              "host": ["{{base_url}}"],
+              "path": ["books", "isbn", "9788437600001"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Get available books",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/books/available/books",
+              "host": ["{{base_url}}"],
+              "path": ["books", "available", "books"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Search books",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/books/search/Cervantes",
+              "host": ["{{base_url}}"],
+              "path": ["books", "search", "Cervantes"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Find books by genre",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/books/genre/Novela",
+              "host": ["{{base_url}}"],
+              "path": ["books", "genre", "Novela"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Search books by genre",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/books/genre/search/Nov",
+              "host": ["{{base_url}}"],
+              "path": ["books", "genre", "search", "Nov"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Create new book",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Cien años de soledad\",\n    \"isbn\": \"9788437600002\",\n    \"published_year\": 1967,\n    \"available_copies\": 5,\n    \"author_ids\": [1],\n    \"genre_ids\": [1, 2]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/books",
+              "host": ["{{base_url}}"],
+              "path": ["books"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Loans",
+      "item": [
+        {
+          "name": "GET - Get all loans",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/loans",
+              "host": ["{{base_url}}"],
+              "path": ["loans"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Get loan by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/loans/1",
+              "host": ["{{base_url}}"],
+              "path": ["loans", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Get user loans",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/loans/user/1",
+              "host": ["{{base_url}}"],
+              "path": ["loans", "user", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Get overdue loans",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/loans/overdue/loans",
+              "host": ["{{base_url}}"],
+              "path": ["loans", "overdue", "loans"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Create new loan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"user_id\": 1,\n    \"book_id\": 1,\n    \"due_date\": \"2024-12-31\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/loans",
+              "host": ["{{base_url}}"],
+              "path": ["loans"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Return loan",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{base_url}}/loans/return/1",
+              "host": ["{{base_url}}"],
+              "path": ["loans", "return", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Statuses",
+      "item": [
+        {
+          "name": "GET - Get all statuses",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/statuses",
+              "host": ["{{base_url}}"],
+              "path": ["statuses"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Get status by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/statuses/1",
+              "host": ["{{base_url}}"],
+              "path": ["statuses", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Get status by name",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/statuses/name/prestado",
+              "host": ["{{base_url}}"],
+              "path": ["statuses", "name", "prestado"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Create new status",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"prestado\",\n    \"description\": \"Libro prestado\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/statuses",
+              "host": ["{{base_url}}"],
+              "path": ["statuses"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Genres",
+      "item": [
+        {
+          "name": "GET - Get all genres",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/genres",
+              "host": ["{{base_url}}"],
+              "path": ["genres"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Get genre by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/genres/1",
+              "host": ["{{base_url}}"],
+              "path": ["genres", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET - Get genre by name",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/genres/name/Ficción",
+              "host": ["{{base_url}}"],
+              "path": ["genres", "name", "Ficción"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST - Create new genre",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Ficción\",\n    \"description\": \"Género de ficción\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/genres",
+              "host": ["{{base_url}}"],
+              "path": ["genres"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE - Delete genre",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/genres/1",
+              "host": ["{{base_url}}"],
+              "path": ["genres", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
