@@ -94,6 +94,10 @@ const routes: Routes = [
         component: LibroDetalleComponent
       },
       {
+        path: 'libros/editar/:id',
+        component: AgregarLibroComponent
+      },
+      {
         path: 'autores/editar/:id',
         component: AgregarAutorComponent
       },

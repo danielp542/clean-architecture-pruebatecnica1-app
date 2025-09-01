@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>Editar préstamo</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="form-container">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Nueva fecha de devolución</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="due_date"
+        [min]="minDate"
+        [max]="maxDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="editForm.get('due_date')?.hasError('required')">
+        La fecha es obligatoria
+      </mat-error>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-button type="button" (click)="onCancel()">Cancelar</button>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="editForm.invalid || isLoading"
+      >
+        <mat-spinner
+          *ngIf="isLoading"
+          diameter="20"
+          class="spinner"
+        ></mat-spinner>
+        <span *ngIf="!isLoading">Guardar</span>
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>

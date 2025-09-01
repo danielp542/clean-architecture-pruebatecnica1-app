@@ -94,7 +94,7 @@ export class LibroDetalleComponent implements OnInit {
 
   editBook(): void {
     if (this.book?.id) {
-      this.router.navigate(['/dashboard/libros/editar', this.book.id]);
+      this.router.navigate(['/dashboard/libros/nuevo', this.book.id]);
     }
   }
 

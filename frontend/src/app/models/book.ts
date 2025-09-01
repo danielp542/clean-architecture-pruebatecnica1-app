@@ -12,6 +12,7 @@ export interface Book {
   authors?: Author[];
   genres?: Genre[];
   loans?: Loan[];
+  available_copies: number;
   created_at?: string;
   updated_at?: string;
 }

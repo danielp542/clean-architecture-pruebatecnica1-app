@@ -57,20 +57,16 @@ export class SigninComponent {
     };
 
     this.authService.login(credentials).subscribe({
-      next: (response) => {
+    next: (response) => {
+      if (response?.access_token && response.user) {
+        sessionStorage.setItem('authToken', response.access_token);
+        sessionStorage.setItem('currentUser', JSON.stringify(response.user));
         
+        console.log('Token guardado:', sessionStorage.getItem('authToken'));
+        console.log('Usuario guardado:', response.user);
 
-
-        
-          
-
-         if (response?.access_token) {
-          sessionStorage.setItem('authToken', response.access_token);
-
-          console.log('Token guardado:', sessionStorage.getItem('authToken')); // <-- debería mostrar el token
-
-          this.router.navigate(['/dashboard']);
-        }
+        this.router.navigate(['/dashboard']);
+      }
 
       
       },
