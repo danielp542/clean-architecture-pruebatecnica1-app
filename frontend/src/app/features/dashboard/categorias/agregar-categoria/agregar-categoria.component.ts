@@ -99,7 +99,7 @@ export class AgregarCategoriaComponent implements OnInit, OnDestroy {
           this.genresService.updateGenre(this.genreId, formValue).subscribe({
             next: (genre: Genre) => {
               this.snackBar.open('Género actualizado correctamente', 'Cerrar', { duration: 3000 });
-              this.router.navigate(['/dashboard/generos/todos']);
+              this.router.navigate(['/dashboard/categorias/todas']);
             },
             error: (error) => {
               console.error('Error updating genre:', error);
@@ -114,7 +114,7 @@ export class AgregarCategoriaComponent implements OnInit, OnDestroy {
           this.genresService.createGenre(formValue).subscribe({
             next: (genre: Genre) => {
               this.snackBar.open('Género creado correctamente', 'Cerrar', { duration: 3000 });
-              this.router.navigate(['/dashboard/generos/todos']);
+              this.router.navigate(['/dashboard/categorias/todas']);
             },
             error: (error) => {
               console.error('Error creating genre:', error);
@@ -131,7 +131,7 @@ export class AgregarCategoriaComponent implements OnInit, OnDestroy {
   }
 
   onCancel(): void {
-    this.router.navigate(['/dashboard/generos/todos']);
+    this.router.navigate(['/dashboard/categorias/todas']);
   }
 
   // Método auxiliar para marcar todos los campos como tocados

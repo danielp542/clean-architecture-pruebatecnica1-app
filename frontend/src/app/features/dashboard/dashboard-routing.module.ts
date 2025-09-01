@@ -8,6 +8,7 @@ import { LibroDetalleComponent } from './libros/libro-detalle/libro-detalle.comp
 import { AutorDetalleComponent } from './autores/autor-detalle/autor-detalle.component';
 import { AgregarAutorComponent } from './autores/agregar-autor/agregar-autor.component';
 import { AgregarCategoriaComponent } from './categorias/agregar-categoria/agregar-categoria.component';
+import { GeneroDetalleComponent } from './categorias/genero-detalle/genero-detalle.component';
 
 const routes: Routes = [
   {
@@ -110,7 +111,7 @@ const routes: Routes = [
       },
       {
         path: 'generos/:id',
-        component: AutorDetalleComponent
+        component: GeneroDetalleComponent
       },
       {
         path: 'generos/editar/:id',

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="header">
     <h1>Todos los Géneros</h1>
-    <button mat-raised-button color="primary" routerLink="/generos/nuevo">
+    <button mat-raised-button color="primary" routerLink="/dashboard/categorias/nueva">
       <mat-icon>add</mat-icon>
       Nuevo Género
     </button>
@@ -70,10 +70,7 @@
                       matTooltip="Editar género">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn" (click)="deleteGenre(genre.id!)"
-                      matTooltip="Eliminar género">
-                <mat-icon>delete</mat-icon>
-              </button>
+              
             </td>
           </ng-container>
 
