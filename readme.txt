@@ -94,7 +94,13 @@ El diseño en Angular es responsivo y sencillo usando TailwindCSS + Angular Mate
 
 Se incluyen pruebas en Postman. Las pruebas unitarias están preparadas para ser extendidas.
 
+#######################################################################
+Usuario y contraseña que se pueden usar 
+"email":"danielp@example.com","password":"password123"
+#######################################################################
+
 ##👨‍💻 Autor
 
 Daniel Felipe García
 Prueba Técnica JR Developer
+
