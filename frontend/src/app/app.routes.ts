@@ -3,7 +3,7 @@ import {authTokenGuard} from './core/guard/auth-token.guard';
 
 export const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     loadChildren: () => import('./features/auth/auth.module').then(m => m.AuthModule)
   },
   {

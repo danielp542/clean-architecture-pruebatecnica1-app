@@ -1,0 +1,153 @@
+<div class="container">
+  <!-- Header con botones de navegación -->
+  <div class="header">
+    <button mat-button (click)="goBack()" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+      Volver
+    </button>
+    
+    <h1>Detalles del Género</h1>
+    
+    <button mat-raised-button color="accent" (click)="editGenre()" *ngIf="genre">
+      <mat-icon>edit</mat-icon>
+      Editar Género
+    </button>
+  </div>
+
+  <!-- Loading spinner -->
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Cargando información del género...</p>
+  </div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="!loading && !genre" class="error-container">
+    <mat-icon class="error-icon">error_outline</mat-icon>
+    <h2>Género no encontrado</h2>
+    <p>No se pudo cargar la información del género solicitado.</p>
+    <button mat-raised-button color="primary" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Volver a la lista
+    </button>
+  </div>
+
+  <!-- Información del género -->
+  <div *ngIf="!loading && genre" class="genre-details">
+    <mat-card class="genre-card">
+      <mat-card-header>
+        <mat-card-title>{{ genre.name }}</mat-card-title>
+        <mat-card-subtitle>
+          <span class="id">ID: {{ genre.id }}</span>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <!-- Información básica -->
+        <div class="info-section">
+          <h3>Información Básica</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">ID:</span>
+              <span class="value">{{ genre.id }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Nombre:</span>
+              <span class="value">{{ genre.name }}</span>
+            </div>
+            <div class="info-item full-width">
+              <span class="label">Descripción:</span>
+              <span class="value">{{ genre.description || 'Sin descripción' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Libros asociados -->
+        <div class="info-section">
+          <h3>Libros en este género</h3>
+          <div *ngIf="hasBooks(); else noBooks">
+            <mat-chip-listbox>
+              <!-- SOLUCIÓN ALTERNATIVA: Usar routerLink directamente -->
+              <mat-chip-option *ngFor="let book of genre.books" 
+                              [selectable]="false"
+                              class="book-chip"
+                              [routerLink]="['/dashboard/libros', book.id]"
+                              matTooltip="Haz clic para ver detalles del libro">
+                <mat-icon>book</mat-icon>
+                {{ book.title }}
+                <span *ngIf="book.published_year" class="year">
+                  ({{ book.published_year }})
+                </span>
+              </mat-chip-option>
+            </mat-chip-listbox>
+            <p class="books-count">Total: {{ getBooksCount() }} libro(s)</p>
+          </div>
+          <ng-template #noBooks>
+            <p class="no-data">No hay libros registrados en este género.</p>
+          </ng-template>
+        </div>
+
+        <!-- Información adicional -->
+        <div class="info-section" *ngIf="genre.created_at || genre.updated_at">
+          <h3>Información Adicional</h3>
+          <div class="info-grid">
+            <div class="info-item" *ngIf="genre.created_at">
+              <span class="label">Fecha de creación:</span>
+              <span class="value">{{ formatDate(genre.created_at) }}</span>
+            </div>
+            <div class="info-item" *ngIf="genre.updated_at">
+              <span class="label">Última actualización:</span>
+              <span class="value">{{ formatDate(genre.updated_at) }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-actions>
+        <button mat-button color="warn" (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+          Volver
+        </button>
+        <button mat-raised-button color="accent" (click)="editGenre()">
+          <mat-icon>edit</mat-icon>
+          Editar
+        </button>
+        <button mat-raised-button color="primary" routerLink="/dashboard/categorias/todas">
+          <mat-icon>list</mat-icon>
+          Ver todos los géneros
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <!-- Estadísticas rápidas -->
+    <div class="stats-cards">
+      <mat-card class="stat-card">
+        <mat-card-header>
+          <mat-card-title>Total de Libros</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="stat-value">
+            {{ getBooksCount() }}
+          </div>
+          <p>libro(s) en este género</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-header>
+          <mat-card-title>Estado</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="stat-value" [class.active]="hasBooks()" 
+               [class.inactive]="!hasBooks()">
+            <mat-icon>{{ hasBooks() ? 'check_circle' : 'cancel' }}</mat-icon>
+          </div>
+          <p>{{ hasBooks() ? 'Activo' : 'Inactivo' }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
