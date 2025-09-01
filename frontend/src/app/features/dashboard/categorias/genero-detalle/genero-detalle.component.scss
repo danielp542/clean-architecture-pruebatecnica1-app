@@ -1,0 +1,213 @@
+.container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+  
+  h1 {
+    margin: 0;
+    color: #3f51b5;
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  
+  .error-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #f44336;
+    margin-bottom: 16px;
+  }
+}
+
+.genre-details {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 24px;
+  align-items: start;
+}
+
+.genre-card {
+  grid-column: 1;
+}
+
+.stats-cards {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 20px;
+}
+
+.stat-card {
+  text-align: center;
+  
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    
+    &.active {
+      color: #4caf50;
+    }
+    
+    &.inactive {
+      color: #f44336;
+    }
+  }
+  
+  p {
+    margin: 0;
+    color: #666;
+  }
+}
+
+.info-section {
+  margin-bottom: 24px;
+  
+  h3 {
+    color: #3f51b5;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  
+  &.full-width {
+    grid-column: 1 / -1;
+  }
+  
+  .label {
+    font-weight: bold;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .value {
+    color: #333;
+    word-break: break-word;
+  }
+}
+
+.book-chip {
+  margin: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: #e3f2fd !important;
+    transform: translateY(-2px);
+  }
+  
+  .year {
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+}
+
+.books-count {
+  margin-top: 12px;
+  font-style: italic;
+  color: #666;
+}
+
+.no-data {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+mat-card-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+// Estilos responsivos
+@media (max-width: 900px) {
+  .genre-details {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-cards {
+    grid-column: 1;
+    flex-direction: row;
+    
+    .stat-card {
+      flex: 1;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    
+    h1 {
+      text-align: center;
+    }
+  }
+  
+  .stats-cards {
+    flex-direction: column;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  mat-card-actions {
+    flex-direction: column;
+    
+    button {
+      width: 100%;
+    }
+  }
+}

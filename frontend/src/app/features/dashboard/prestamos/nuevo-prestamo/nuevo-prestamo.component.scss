@@ -1,0 +1,94 @@
+.container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-row {
+  margin-bottom: 24px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.info-section {
+  margin-bottom: 24px;
+  padding: 16px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  
+  h3 {
+    margin-top: 0;
+    color: #3f51b5;
+  }
+  
+  .user-info {
+    p {
+      margin: 8px 0;
+    }
+  }
+}
+
+.rules-section {
+  margin: 24px 0;
+  padding: 16px;
+  background-color: #fff3e0;
+  border-left: 4px solid #ff9800;
+  border-radius: 4px;
+  
+  h4 {
+    margin-top: 0;
+    color: #e65100;
+  }
+}
+
+.book-details {
+  font-size: 0.8rem;
+  color: #666;
+  margin-left: 8px;
+}
+
+.button-row {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 32px;
+  
+  button {
+    min-width: 160px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  gap: 16px;
+}
+
+// Estilos responsivos
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .button-row {
+    flex-direction: column;
+    
+    button {
+      width: 100%;
+    }
+  }
+  
+  .book-details {
+    display: block;
+    margin-left: 0;
+    margin-top: 4px;
+  }
+}

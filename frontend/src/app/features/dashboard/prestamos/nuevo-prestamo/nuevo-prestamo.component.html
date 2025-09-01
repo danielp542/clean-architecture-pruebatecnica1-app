@@ -1,0 +1,99 @@
+<div class="container" *ngIf="!isLoading; else loading">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>book</mat-icon>
+        Solicitar Nuevo Préstamo
+      </mat-card-title>
+      <mat-card-subtitle>
+        Complete los datos para solicitar un préstamo de libro
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+      <form [formGroup]="loanForm" (ngSubmit)="onSubmit()">
+     
+        <div class="info-section">
+          <h3>Información del Usuario</h3>
+          <div class="user-info">
+            <p><strong>Usuario:</strong> {{ currentUserName }}</p>
+            <p><strong>ID:</strong> {{ currentUserId }}</p>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Seleccionar Libro</mat-label>
+            <mat-select formControlName="book_id" required>
+              <mat-option *ngFor="let book of books" [value]="book.id">
+                {{ book.title }} 
+                <span class="book-details">
+                    - ISBN: {{ book.isbn }} | 
+                    Disponibles: {{ book.available_copies }} |
+                    Año: {{ book.published_year }}
+                </span>
+                </mat-option>
+
+            </mat-select>
+            <mat-icon matSuffix>menu_book</mat-icon>
+            <mat-error *ngIf="book_id?.hasError('required')">
+              Debe seleccionar un libro
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Fecha de Devolución</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="due_date" required
+                   [min]="minDate" [max]="maxDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-hint>Máximo 15 días desde hoy ({{ maxDate | date:'dd/MM/yyyy' }})</mat-hint>
+            <mat-error *ngIf="due_date?.hasError('required')">
+              La fecha de devolución es requerida
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="rules-section">
+          <h4>Reglas de Préstamo:</h4>
+          <mat-list dense>
+            <mat-list-item>
+              <mat-icon matListItemIcon>info</mat-icon>
+              <div matListItemTitle>Máximo 3 préstamos activos por usuario</div>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-icon matListItemIcon>calendar_today</mat-icon>
+              <div matListItemTitle>Período máximo de préstamo: 15 días</div>
+            </mat-list-item>
+            <mat-list-item>
+              <mat-icon matListItemIcon>warning</mat-icon>
+              <div matListItemTitle>Los libros deben estar disponibles</div>
+            </mat-list-item>
+          </mat-list>
+        </div>
+
+        <div class="button-row">
+          <button mat-raised-button type="button" (click)="onCancel()" color="warn">
+            <mat-icon>cancel</mat-icon>
+            Cancelar
+          </button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="isLoading || !loanForm.valid">
+            <mat-icon>check_circle</mat-icon>
+            {{ isLoading ? 'Creando...' : 'Solicitar Préstamo' }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<ng-template #loading>
+  <div class="loading-spinner">
+    <mat-spinner></mat-spinner>
+    <p>Cargando libros disponibles...</p>
+  </div>
+</ng-template>

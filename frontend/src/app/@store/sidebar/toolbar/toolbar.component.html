@@ -1,0 +1,16 @@
+<div class="mb-14 flex flex-col items-center justify-center" *ngIf="currentUser">
+  <emr-dicebear key="LV" src="{{assignedAvatars}}" class="size-28"></emr-dicebear>
+  <div class="text-md font-medium mt-4">{{ name }}</div>
+  <div class="text-xs text-neutral-500 mt-0.5" *ngIf="email">{{ email }}</div>
+  <div class="text-xs text-neutral-500 mt-0.5" *ngIf="!email">Usuario</div>
+</div>
+
+<div class="mb-14 flex flex-col items-center justify-center" *ngIf="!currentUser">
+  <emr-dicebear key="LV" src="{{assignedAvatars}}" class="size-28"></emr-dicebear>
+  <div class="text-md font-medium mt-4">Usuario</div>
+  <div class="text-xs text-neutral-500 mt-0.5">No autenticado</div>
+</div>
+
+<button mat-button class="w-full" (click)="logout()">
+  <mat-icon>logout</mat-icon> Salir
+</button>

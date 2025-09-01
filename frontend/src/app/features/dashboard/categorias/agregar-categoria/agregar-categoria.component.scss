@@ -1,0 +1,42 @@
+.container {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-row {
+  margin-bottom: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-row {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+// Estilos responsivos
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .button-row {
+    flex-direction: column;
+    
+    button {
+      width: 100%;
+    }
+  }
+}

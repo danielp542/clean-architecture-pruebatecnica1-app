@@ -1,0 +1,144 @@
+<div class="px-10 py-14">
+  <div class="max-w-[1000px] mx-auto">
+    <section class="bg-surface-container-low rounded-2xl">
+      <div class="h-32 rounded-t-2xl relative">
+        <div class="absolute start-10 size-44 border-4 border-background overflow-hidden
+                -bottom-2 translate-y-1/2 bg-tertiary-200 dark:bg-tertiary-400 rounded-full">
+          <img src="assets/avatars/8.svg" alt="" class="bg-cover">
+        </div>
+      </div>
+      <div class="pb-12 ps-12 pe-12 pt-7">
+        <div class="flex h-full justify-between gap-10">
+          <div class="mt-10">
+            <div class="mt-14">
+              <div class="flex items-center gap-4">
+                <div class="text-2xl font-bold">{{ userData?.firstName }} {{ userData?.lastName }}</div>
+                <div class="flex items-center">
+                  <mat-icon class="font-icon text-neutral-600 dark:text-neutral-500
+                               !text-lg !w-6 !h-7 flex items-center justify-center">location_on</mat-icon>
+                  <div class="text-xs text-neutral-650 dark:text-neutral-500">{{ userData?.cityName }}</div>
+                </div>
+              </div>
+              <div class="text-sm text-neutral-500 mt-1.5"><strong>{{ userData?.abbreviation }}: </strong> {{ userData?.documentNumber }} - {{ userData?.birthDate }}</div>
+            </div>
+          </div>
+          <div class="max-w-96">
+            <div>
+              <div class="text-sm text-neutral-500 dark:text-neutral-400">Actividad</div>
+              <div class="flex gap-2 mt-1.5 flex-wrap">
+                @for (activity of userData?.userActivityDto; track activity) {
+                  <div class="w-max rounded-xl text-xs bg-surface-container-high px-2 h-6 flex items-center gap-1">
+                    <span class="text-on-surface">{{ activity.activityType }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+            <div class="mt-7">
+              <div class="text-sm text-neutral-500 dark:text-neutral-400">Experiencias ({{ userData?.userExperienceDto?.length || 0 }})</div>
+              <div class="flex gap-2 mt-1.5 flex-wrap">
+                @for (experience of (userData?.userExperienceDto || [])?.slice(0, showAll ? userData?.userExperienceDto?.length : 2); track experience) {
+                  <div class="w-max rounded-xl text-xs bg-surface-container-high px-2 h-6 flex items-center gap-1">
+                    <span class="text-neutral-variant-600 dark:text-neutral-500">{{ experience.discipline }}:</span>
+                    <span class="text-on-surface">{{ experience.rank }}</span>
+                  </div>
+                }
+
+                @if ((userData?.userExperienceDto?.length ?? 0) > 2) {
+                  <div
+                    class="w-max text-xs px-2 h-6 flex items-center text-primary hover:text-tertiary cursor-pointer"
+                    (click)="toggleShowAll()">
+                    {{ showMoreText }}
+                  </div>
+                }
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="mt-12 grid grid-cols-12 gap-20">
+      <section class="col-span-8">
+        <div class="border border-default rounded-2xl p-8">
+          <div class="font-bold">Acerca de mi</div>
+          <div class="text-md mt-5 leading-relaxed">
+            <p>
+              {{userData?.aboutMe}}
+            </p>
+          </div>
+        </div>
+        <div class="mt-14">
+          <div class="font-bold">Informacion Medica</div>
+          <div class="text-md mt-5">
+            <table class="w-full">
+              <tbody>
+                @for (medical of userData?.userMedicalInfoDto; track medical) {
+              <tr>
+                <td class="w-1 whitespace-nowrap text-tiny align-top">
+                  <div class="text-neutral-650 dark:text-neutral-600">Tipo Sangre | {{medical.bloodTypeName}}</div>
+                  <div class="text-neutral-500 mt-2">EPS : {{medical.healthSystemName}}</div>
+                </td>
+                <td class="ps-10 align-top">
+                  <div class="font-semibold text-sm">{{medical.medicalConditions}}</div>
+                  <div class="text-sm text-neutral-500 mt-2 pb-7">
+                    {{medical.notes}}
+                  </div>
+                </td>
+              </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section class="col-span-4">
+        <div>
+          <div class="font-bold">Datos de contacto</div>
+          <div class="flex flex-col gap-5 mt-5">
+            <div>
+              <div class="text-tiny text-neutral-500">Dirección de correo electrónico</div>
+              <div class="text-md mt-0.5">{{ userData?.email }}</div>
+            </div>
+            <div>
+              <div class="text-tiny text-neutral-500">Telefono</div>
+              <div class="text-md mt-0.5">{{ userData?.phoneNumber }}</div>
+            </div>
+            <div>
+              <div class="text-tiny text-neutral-500">Genero</div>
+              <div class="text-md mt-0.5">{{ userData?.genderName }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12">
+          <div class="font-bold">Acudientes</div>
+          <div class="mt-5 flex flex-col gap-5">
+            @for (person of userData?.userGuardianDto; track person) {
+              <div class="flex items-center gap-3">
+                <emr-avatar [src]="person?.foto || 'assets/default-avatar.png'" class="size-10"></emr-avatar>
+                <div>
+                  <div class="text-tiny font-semibold">{{ person.name }}</div>
+                  <div class="text-xs text-neutral-500 dark:text-neutral-400">{{ person.occupation }} - {{ person.contactNumber }} </div>
+                </div>
+              </div>
+            }
+
+          </div>
+        </div>
+        <div class="mt-12">
+          <div class="font-bold">Informacion Academica</div>
+          <div class="mt-5 flex flex-col gap-5">
+            @for (education of userData?.userEducationDto; track education) {
+              <div class="flex items-center gap-3">
+                <div>
+                  <div class="text-tiny font-semibold">{{ education.gradeName }}</div>
+                  <div class="text-xs text-neutral-500 dark:text-neutral-400">{{ education.institutionName }}</div>
+                </div>
+              </div>
+            }
+
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
