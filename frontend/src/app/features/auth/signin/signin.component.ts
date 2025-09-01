@@ -10,7 +10,6 @@ import {NgIf} from "@angular/common";
 import {MatDialog} from "@angular/material/dialog";
 import {SelectAcademyModalComponent} from "../select-academy-modal/select-academy-modal.component";
 import {NavigationItem} from "@elementar-ui/components/navigation";
-import {AcademyService} from '../../../core/services/academy.service';
 
 @Component({
   selector: 'app-signin',
@@ -36,8 +35,7 @@ export class SigninComponent {
 
   constructor(private fb: FormBuilder, private authService: AuthService,
               private router: Router,
-              private dialog: MatDialog,
-              private academyService: AcademyService) {
+              private dialog: MatDialog,) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(5)]]
