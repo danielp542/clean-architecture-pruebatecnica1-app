@@ -55,9 +55,12 @@ export class LoansService extends BaseService {
       )
     );
 }
-
-  // Devolver un préstamo
-  // Devolver un préstamo
+getAllLoans(): Observable<Loan[]> {
+  return this.http.get<{ data: Loan[] }>(`${this.apiUrl}/loans`)
+    .pipe(
+      map(response => response.data)
+    );
+}
 returnLoan(loanId: number): Observable<any> {
   return this.http.post(`${this.apiUrl}/loans/return/${loanId}`, {});
 }

@@ -6,6 +6,7 @@ import { BaseService } from './base.service';
 import { Book } from '../../models/book';
 import { CreateBookRequest } from '../../models/CreateBookRequest';
 import { UpdateBookRequest } from '../../models/UpdateBookRequest';
+import { Loan } from './loans.service';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +74,7 @@ export class BooksService extends BaseService {
   }
 
   updateBook(id: number, book: UpdateBookRequest): Observable<Book> {
-    return this.put<any>(`books/${id}`, book).pipe(
+    return this.post<any>(`books/${id}`, book).pipe(
       map(response => response.data || response)
     );
   }

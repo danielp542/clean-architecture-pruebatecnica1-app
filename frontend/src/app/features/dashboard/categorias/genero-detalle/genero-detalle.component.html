@@ -1,5 +1,4 @@
 <div class="container">
-  <!-- Header con botones de navegación -->
   <div class="header">
     <button mat-button (click)="goBack()" class="back-button">
       <mat-icon>arrow_back</mat-icon>
@@ -14,13 +13,11 @@
     </button>
   </div>
 
-  <!-- Loading spinner -->
   <div *ngIf="loading" class="loading-container">
     <mat-spinner diameter="50"></mat-spinner>
     <p>Cargando información del género...</p>
   </div>
 
-  <!-- Mensaje de error -->
   <div *ngIf="!loading && !genre" class="error-container">
     <mat-icon class="error-icon">error_outline</mat-icon>
     <h2>Género no encontrado</h2>
@@ -31,7 +28,6 @@
     </button>
   </div>
 
-  <!-- Información del género -->
   <div *ngIf="!loading && genre" class="genre-details">
     <mat-card class="genre-card">
       <mat-card-header>
@@ -44,7 +40,6 @@
       <mat-divider></mat-divider>
 
       <mat-card-content>
-        <!-- Información básica -->
         <div class="info-section">
           <h3>Información Básica</h3>
           <div class="info-grid">
@@ -63,12 +58,10 @@
           </div>
         </div>
 
-        <!-- Libros asociados -->
         <div class="info-section">
           <h3>Libros en este género</h3>
           <div *ngIf="hasBooks(); else noBooks">
             <mat-chip-listbox>
-              <!-- SOLUCIÓN ALTERNATIVA: Usar routerLink directamente -->
               <mat-chip-option *ngFor="let book of genre.books" 
                               [selectable]="false"
                               class="book-chip"
@@ -88,7 +81,6 @@
           </ng-template>
         </div>
 
-        <!-- Información adicional -->
         <div class="info-section" *ngIf="genre.created_at || genre.updated_at">
           <h3>Información Adicional</h3>
           <div class="info-grid">
@@ -122,7 +114,6 @@
       </mat-card-actions>
     </mat-card>
 
-    <!-- Estadísticas rápidas -->
     <div class="stats-cards">
       <mat-card class="stat-card">
         <mat-card-header>

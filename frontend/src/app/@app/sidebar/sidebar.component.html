@@ -2,7 +2,7 @@
   <emr-sidebar-header class="header">
     <div class="h-20 flex items-center w-full justify-between border-b border-b-default">
       <a emr-logo routerLink="/" emrSidebarCompactViewMode>AM</a>
-      <a emr-logo routerLink="/" emrSidebarFullViewMode>ACADEMY MANAGER</a>
+      <a emr-logo routerLink="/dashboard" emrSidebarFullViewMode>BOOKS</a>
       <button mat-icon-button (click)="compact = !compact" class="sidebar-toggle">
         @if (compact) {
           <mat-icon>keyboard_double_arrow_right</mat-icon>
@@ -14,7 +14,6 @@
   </emr-sidebar-header>
   <emr-sidebar-body class="body">
     <emr-sidebar-nav [activeKey]="activeKey">
-      <!-- Elementos de navegación existentes -->
       @for (navItem of navItems; track navItem) {
         @switch (navItem.type) {
           @case ('link') {
@@ -61,10 +60,9 @@
         }
       }
       
-      <!-- Nuevas secciones para Libros, Autores, Categorías y Préstamos -->
+      
       <emr-sidebar-nav-heading>Biblioteca</emr-sidebar-nav-heading>
       
-      <!-- Sección de Libros -->
       <emr-sidebar-nav-group>
         <emr-sidebar-nav-group-toggle>
           <ng-container emrSidebarNavItemIcon>
@@ -80,7 +78,6 @@
         </emr-sidebar-nav-group-menu>
       </emr-sidebar-nav-group>
       
-      <!-- Sección de Autores -->
       <emr-sidebar-nav-group>
         <emr-sidebar-nav-group-toggle>
           <ng-container emrSidebarNavItemIcon>
@@ -96,7 +93,6 @@
         </emr-sidebar-nav-group-menu>
       </emr-sidebar-nav-group>
       
-      <!-- Sección de Categorías -->
       <emr-sidebar-nav-group>
         <emr-sidebar-nav-group-toggle>
           <ng-container emrSidebarNavItemIcon>
@@ -108,11 +104,9 @@
         <emr-sidebar-nav-group-menu>
           <a emr-sidebar-nav-item routerLink="categorias/todas" key="categorias-todas">Todas las Categorías</a>
           <a emr-sidebar-nav-item routerLink="categorias/nueva" key="categorias-nueva">Agregar Categoría</a>
-          <a emr-sidebar-nav-item routerLink="categorias/populares" key="categorias-populares">Categorías Destacadas</a>
         </emr-sidebar-nav-group-menu>
       </emr-sidebar-nav-group>
       
-      <!-- Sección de Préstamos -->
       <emr-sidebar-nav-group>
         <emr-sidebar-nav-group-toggle>
           <ng-container emrSidebarNavItemIcon>

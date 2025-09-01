@@ -1,5 +1,6 @@
 // UpdateBookRequest.ts
 export interface UpdateBookRequest {
+    id: number;
   title: string;
   isbn: string;
   published_year: number;

@@ -1,5 +1,4 @@
 <div class="container">
-  <!-- Header con botones de navegación -->
   <div class="header">
     <button mat-button (click)="goBack()" class="back-button">
       <mat-icon>arrow_back</mat-icon>
@@ -14,13 +13,11 @@
     </button>
   </div>
 
-  <!-- Loading spinner -->
   <div *ngIf="loading" class="loading-container">
     <mat-spinner diameter="50"></mat-spinner>
     <p>Cargando información del libro...</p>
   </div>
 
-  <!-- Mensaje de error -->
   <div *ngIf="!loading && !book" class="error-container">
     <mat-icon class="error-icon">error_outline</mat-icon>
     <h2>Libro no encontrado</h2>
@@ -31,7 +28,6 @@
     </button>
   </div>
 
-  <!-- Información del libro -->
   <div *ngIf="!loading && book" class="book-details">
     <mat-card class="book-card">
       <mat-card-header>
@@ -44,7 +40,6 @@
       <mat-divider></mat-divider>
 
       <mat-card-content>
-        <!-- Información básica -->
         <div class="info-section">
           <h3>Información Básica</h3>
           <div class="info-grid">
@@ -83,7 +78,6 @@
           </div>
         </div>
 
-        <!-- Autores -->
         <div class="info-section">
           <h3>Autores</h3>
           <div *ngIf="book.authors && book.authors.length > 0; else noAuthors">
@@ -104,7 +98,6 @@
           </ng-template>
         </div>
 
-        <!-- Géneros -->
         <div class="info-section">
           <h3>Géneros</h3>
           <div *ngIf="book.genres && book.genres.length > 0; else noGenres">
@@ -125,7 +118,6 @@
           </ng-template>
         </div>
 
-        <!-- Información adicional -->
         <div class="info-section" *ngIf="book.created_at || book.updated_at">
           <h3>Información Adicional</h3>
           <div class="info-grid">
@@ -159,7 +151,6 @@
       </mat-card-actions>
     </mat-card>
 
-    <!-- Estadísticas rápidas -->
     <div class="stats-cards">
       <mat-card class="stat-card">
         <mat-card-header>

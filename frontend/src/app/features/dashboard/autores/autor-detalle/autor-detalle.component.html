@@ -1,5 +1,4 @@
 <div class="container">
-  <!-- Header con botones de navegación -->
   <div class="header">
     <button mat-button (click)="goBack()" class="back-button">
       <mat-icon>arrow_back</mat-icon>
@@ -14,13 +13,11 @@
     </button>
   </div>
 
-  <!-- Loading spinner -->
   <div *ngIf="loading" class="loading-container">
     <mat-spinner diameter="50"></mat-spinner>
     <p>Cargando información del autor...</p>
   </div>
 
-  <!-- Mensaje de error -->
   <div *ngIf="!loading && !author" class="error-container">
     <mat-icon class="error-icon">error_outline</mat-icon>
     <h2>Autor no encontrado</h2>
@@ -31,7 +28,6 @@
     </button>
   </div>
 
-  <!-- Información del autor -->
   <div *ngIf="!loading && author" class="author-details">
     <mat-card class="author-card">
       <mat-card-header>
@@ -44,7 +40,6 @@
       <mat-divider></mat-divider>
 
       <mat-card-content>
-        <!-- Información básica -->
         <div class="info-section">
           <h3>Información Básica</h3>
           <div class="info-grid">
@@ -71,7 +66,6 @@
           </div>
         </div>
 
-        <!-- Biografía -->
         <div class="info-section" *ngIf="author.bio">
           <h3>Biografía</h3>
           <div class="bio-content">
@@ -79,7 +73,6 @@
           </div>
         </div>
 
-        <!-- Libros del autor -->
         <div class="info-section">
           <h3>Libros Publicados</h3>
           <div *ngIf="author.books && author.books.length > 0; else noBooks">
@@ -100,8 +93,6 @@
             <p class="no-data">Este autor no tiene libros registrados.</p>
           </ng-template>
         </div>
-
-        <!-- Información adicional -->
         
       </mat-card-content>
 
@@ -123,7 +114,6 @@
       </mat-card-actions>
     </mat-card>
 
-    <!-- Estadísticas rápidas -->
     <div class="stats-cards">
       <mat-card class="stat-card">
         <mat-card-header>

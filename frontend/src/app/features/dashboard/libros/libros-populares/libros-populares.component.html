@@ -1,1 +1,45 @@
-<p>libros-populares works!</p>
+<div class="popular-books-container">
+  <h2 class="title">Libros Más Populares</h2>
+  
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Cargando libros más prestados...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <p class="error-message">{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="loadMostBorrowedBooks()">
+      Reintentar
+    </button>
+  </div>
+
+  <div *ngIf="!loading && !error" class="podium-container">
+    <div *ngFor="let book of topBooks; let i = index" 
+         [class]="'podium-card ' + getPositionClass(i)">
+      
+      <mat-card>
+        <mat-card-header>
+          <div class="medal">{{ getMedalIcon(i) }}</div>
+          <mat-card-title class="position-title">#{{ i + 1 }}</mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <div class="book-info">
+            <h3 class="book-title">{{ book.title }}</h3>
+            <p class="book-author">{{ getAuthors(book) }}</p>
+            <p class="book-isbn">ISBN: {{ book.isbn }}</p>
+            <div class="stats">
+              <span class="borrow-count">
+                📊 {{ getBorrowCount(book) }} préstamos
+              </span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !error && topBooks.length === 0" class="no-books">
+    <p>No hay datos de libros prestados disponibles.</p>
+  </div>
+</div>

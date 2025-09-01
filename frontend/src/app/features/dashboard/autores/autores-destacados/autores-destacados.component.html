@@ -1,1 +1,46 @@
-<p>autores-destacados works!</p>
+<div class="popular-authors-container">
+  <h2 class="title">Autores Más Destacados</h2>
+  
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Cargando autores destacados...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <p class="error-message">{{ error }}</p>
+    <button mat-raised-button color="primary" (click)="loadTopAuthors()">
+      Reintentar
+    </button>
+  </div>
+
+  <div *ngIf="!loading && !error" class="podium-container">
+    <div *ngFor="let author of topAuthors; let i = index" 
+         [class]="'podium-card ' + getPositionClass(i)">
+      
+      <mat-card>
+        <mat-card-header>
+          <div class="medal">{{ getMedalIcon(i) }}</div>
+          <mat-card-title class="position-title">#{{ i + 1 }}</mat-card-title>
+        </mat-card-header>
+        
+        <mat-card-content>
+          <div class="author-info">
+            <h3 class="author-name">{{ author.name }}</h3>
+            <div class="stats">
+              <span class="book-count">
+                📚 {{ getBookCount(author) }} libros
+              </span>
+              <span class="borrow-count">
+                📊 {{ getBorrowCount(author) }} préstamos
+              </span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !error && topAuthors.length === 0" class="no-authors">
+    <p>No hay datos de autores disponibles.</p>
+  </div>
+</div>
