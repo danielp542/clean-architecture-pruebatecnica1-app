@@ -1,0 +1,149 @@
+.popular-authors-container {
+  padding: 20px;
+  text-align: center;
+  
+  .title {
+    margin-bottom: 30px;
+    color: #3f51b5;
+    font-size: 24px;
+    font-weight: 500;
+  }
+  
+  .loading-container, .error-container, .no-authors {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    
+    p {
+      margin-top: 16px;
+      color: #666;
+    }
+  }
+  
+  .error-message {
+    color: #f44336;
+    margin-bottom: 16px;
+  }
+  
+  .podium-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    
+    .podium-card {
+      flex: 1;
+      
+      &.first-place {
+        order: 2;
+        transform: scale(1.1);
+        z-index: 3;
+        
+        mat-card {
+          background: linear-gradient(135deg, #FFD700 0%, #FFEC8B 100%);
+        }
+      }
+      
+      &.second-place {
+        order: 1;
+        z-index: 2;
+        
+        mat-card {
+          background: linear-gradient(135deg, #C0C0C0 0%, #E6E6E6 100%);
+        }
+      }
+      
+      &.third-place {
+        order: 3;
+        z-index: 1;
+        
+        mat-card {
+          background: linear-gradient(135deg, #CD7F32 0%, #E6BE8A 100%);
+        }
+      }
+    }
+    
+    mat-card {
+      overflow: hidden;
+      transition: all 0.3s ease;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      }
+    }
+    
+    .medal {
+      font-size: 24px;
+      margin-right: 8px;
+    }
+    
+    .position-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #3f51b5;
+    }
+    
+    .author-info {
+      padding: 16px 0;
+      
+      .author-name {
+        font-size: 18px;
+        font-weight: 500;
+        margin: 8px 0;
+        color: #333;
+      }
+      
+      .stats {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 12px;
+        
+        .book-count, .borrow-count {
+          display: inline-block;
+          background-color: rgba(255, 255, 255, 0.7);
+          padding: 6px 12px;
+          border-radius: 16px;
+          font-size: 14px;
+          color: #3f51b5;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .podium-container {
+      flex-direction: column;
+      align-items: center;
+      
+      .podium-card {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 20px;
+        
+        &.first-place {
+          order: 1;
+          transform: scale(1);
+        }
+        
+        &.second-place {
+          order: 2;
+        }
+        
+        &.third-place {
+          order: 3;
+        }
+      }
+    }
+  }
+}

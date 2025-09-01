@@ -1,0 +1,42 @@
+<div class="flex flex-wrap">
+  <div class="flex w-full flex-col md:w-1/2">
+    <a emr-logo routerLink="/" class="absolute top-7 start-8">Elementar</a>
+    <div class="lg:w-[30rem] mx-auto my-auto flex flex-col justify-center pt-8 md:justify-start md:px-6 md:pt-0">
+      <h1 class="text-left text-3xl font-bold">Sign up</h1>
+      <p class="text-sm mt-3 text-neutral-500">
+        Let's get started with your 30 days free trial
+      </p>
+      <form class="flex flex-col pt-3 md:pt-8" [formGroup]="form">
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input type="name" matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input type="email" matInput formControlName="email">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="password">
+        </mat-form-field>
+        <button mat-flat-button color="primary" type="button" class="!h-12 mt-4" [disabled]="form.invalid">Sign Up</button>
+      </form>
+     
+      
+      <div class="pt-12 text-center">
+        <p class="whitespace-nowrap text-xs">
+          <span class="inline-block me-1 text-neutral-600 dark:text-neutral-400">Already have an account?</span>
+          <a routerLink="/auth" class="underline-offset-4 font-semibold text-neutral-800 dark:text-neutral-300
+                                              underline hover:text-accent dark:hover:text-accent">Sign in</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="pointer-events-none relative hidden h-screen select-none bg-black md:block md:w-1/2">
+    <div class="absolute bottom-0 z-10 px-16 py-12 text-white opacity-100 z-1">
+      
+    </div>
+    <img class="z-0 absolute top-0 h-full w-full object-cover opacity-90"
+         src="https://images.unsplash.com/photo-1565301660306-29e08751cc53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" />
+  </div>
+</div>

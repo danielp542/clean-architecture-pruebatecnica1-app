@@ -1,0 +1,193 @@
+<div class="container">
+  <div class="header">
+    <button mat-button (click)="goBack()" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+      Volver
+    </button>
+    
+    <h1>Detalles del Libro</h1>
+    
+    <button mat-raised-button color="accent" (click)="editBook()" *ngIf="book">
+      <mat-icon>edit</mat-icon>
+      Editar Libro
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Cargando información del libro...</p>
+  </div>
+
+  <div *ngIf="!loading && !book" class="error-container">
+    <mat-icon class="error-icon">error_outline</mat-icon>
+    <h2>Libro no encontrado</h2>
+    <p>No se pudo cargar la información del libro solicitado.</p>
+    <button mat-raised-button color="primary" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+      Volver a la lista
+    </button>
+  </div>
+
+  <div *ngIf="!loading && book" class="book-details">
+    <mat-card class="book-card">
+      <mat-card-header>
+        <mat-card-title>{{ book.title }}</mat-card-title>
+        <mat-card-subtitle>
+          <span class="isbn">ISBN: {{ book.isbn }}</span>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-content>
+        <div class="info-section">
+          <h3>Información Básica</h3>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="label">ID:</span>
+              <span class="value">{{ book.id }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Título:</span>
+              <span class="value">{{ book.title }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">ISBN:</span>
+              <span class="value">{{ book.isbn }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Año de publicación:</span>
+              <span class="value">{{ book.published_year }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Copias disponibles:</span>
+              <span class="value" [class.available]="book.copies_available > 0" 
+                    [class.unavailable]="book.copies_available === 0">
+                {{ book.copies_available }}
+                <mat-icon *ngIf="book.copies_available > 0" class="status-icon">check_circle</mat-icon>
+                <mat-icon *ngIf="book.copies_available === 0" class="status-icon unavailable">cancel</mat-icon>
+              </span>
+            </div>
+            <div class="info-item">
+              <span class="label">Estado:</span>
+              <span class="value" [class.available]="book.copies_available > 0" 
+                    [class.unavailable]="book.copies_available === 0">
+                {{ isAvailable() ? 'Disponible' : 'No disponible' }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3>Autores</h3>
+          <div *ngIf="book.authors && book.authors.length > 0; else noAuthors">
+            <mat-chip-listbox>
+              <mat-chip-option *ngFor="let author of book.authors" 
+                              [selectable]="false"
+                              class="author-chip">
+                <mat-icon>person</mat-icon>
+                {{ author.name }}
+                <span *ngIf="author.nationality" class="nationality">
+                  ({{ author.nationality }})
+                </span>
+              </mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+          <ng-template #noAuthors>
+            <p class="no-data">No hay autores registrados para este libro.</p>
+          </ng-template>
+        </div>
+
+        <div class="info-section">
+          <h3>Géneros</h3>
+          <div *ngIf="book.genres && book.genres.length > 0; else noGenres">
+            <mat-chip-listbox>
+              <mat-chip-option *ngFor="let genre of book.genres" 
+                              [selectable]="false"
+                              class="genre-chip">
+                <mat-icon>category</mat-icon>
+                {{ genre.name }}
+                <span *ngIf="genre.description" class="genre-description" matTooltip="{{ genre.description }}">
+                  ℹ️
+                </span>
+              </mat-chip-option>
+            </mat-chip-listbox>
+          </div>
+          <ng-template #noGenres>
+            <p class="no-data">No hay géneros registrados para este libro.</p>
+          </ng-template>
+        </div>
+
+        <div class="info-section" *ngIf="book.created_at || book.updated_at">
+          <h3>Información Adicional</h3>
+          <div class="info-grid">
+            <div class="info-item" *ngIf="book.created_at">
+              <span class="label">Fecha de creación:</span>
+              <span class="value">{{ book.created_at | date:'medium' }}</span>
+            </div>
+            <div class="info-item" *ngIf="book.updated_at">
+              <span class="label">Última actualización:</span>
+              <span class="value">{{ book.updated_at | date:'medium' }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-actions>
+        <button mat-button color="warn" (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+          Volver
+        </button>
+        <button mat-raised-button color="accent" (click)="editBook()">
+          <mat-icon>edit</mat-icon>
+          Editar
+        </button>
+        <button mat-raised-button color="primary" routerLink="/dashboard/libros/todos">
+          <mat-icon>list</mat-icon>
+          Ver todos los libros
+        </button>
+      </mat-card-actions>
+    </mat-card>
+
+    <div class="stats-cards">
+      <mat-card class="stat-card">
+        <mat-card-header>
+          <mat-card-title>Disponibilidad</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="stat-value" [class.available]="book.copies_available > 0" 
+               [class.unavailable]="book.copies_available === 0">
+            {{ book.copies_available }}
+          </div>
+          <p>copias disponibles</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-header>
+          <mat-card-title>Autores</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="stat-value">
+            {{ book.authors?.length || 0 }}
+          </div>
+          <p>autor(es)</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="stat-card">
+        <mat-card-header>
+          <mat-card-title>Géneros</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="stat-value">
+            {{ book.genres?.length || 0 }}
+          </div>
+          <p>género(s)</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
